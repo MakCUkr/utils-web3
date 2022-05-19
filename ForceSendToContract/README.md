@@ -1,0 +1,1 @@
+This contract allows to FORCEFULLY send ether to a contract at address _addr , even if it doesn't  have a receive() function
