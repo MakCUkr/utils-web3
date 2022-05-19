@@ -1,0 +1,14 @@
+To get next.js up and running install it with npm install. Then add : "dev": "next dev" to the package.json file. Create a pages directory and  an index.js file in it. 
+
+----------------------------------
+Index.js :  
+
+import React from 'react';
+
+export default() => {
+  return <h1>This is the uniswap frontend</h1>;
+}
+----------------------------------
+
+Run "npm run dev" and connect to http://localhost:3000/
+You should see a h1 text. 

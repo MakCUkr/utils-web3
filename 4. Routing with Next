@@ -1,0 +1,43 @@
+In order to set up automatic routing with next, we need to install new-routes using npm. Once that is installed we create two files: routes.js and server.js and add the relevant code from : https://github.com/fridays/next-routes.
+
+Then in the main package.json file we change the script for "dev" to "node server.js". Now reopen the Terminal and run "node server.js"
+
+
+Routes.js
+-----------------------------------------------
+const routes = require('next-routes')
+
+module.exports = routes()                        
+.add('about')                                     
+.add('blog', '/blog/:slug')                        
+.add('user', '/user/:id', 'profile')                
+.add('/:noname/:lang(en|es)/:wow+', 'complex')      
+.add({name: 'beta', pattern: '/v3', page: 'v3'})    
+
+-----------------------------------------------
+
+
+Server.js
+-----------------------------------------------
+const next = require('next')
+const routes = require('./routes')
+const app = next({dev: process.env.NODE_ENV !== 'production'})
+const handler = routes.getRequestHandler(app)
+
+
+
+// Without express
+const {createServer} = require('http')
+app.prepare().then(() => {
+  createServer(handler).listen(3000)
+})
+-----------------------------------------------
+
+
+To reroute the user on pressing any buttons we will use of 2 object exported from routes.js file. We use "import { Link, Router } from "../routes";" 
+
+Now to send use r automatically to other page we use "Router.pushRoute('/);"
+
+
+gotcha 1 : Link (from next-routes) and Menu.Item(from semantic UI React) don't work together
+

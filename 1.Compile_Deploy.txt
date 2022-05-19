@@ -1,0 +1,57 @@
+1. Deploy the contract on Rinkeby
+
+2. Create a compile.js file in the ethereal folder. Do NOT use the compile file in. Udemy since it is outdated and will cause problems. The compile file provided below works with sole version 0.8.11. After compilation with "node compile.js" command ABI and bytecode for the contract will be printed.
+
+NOTE: we print Abu after passing to JSON.stringify(). The reason is that you can't generally copy past JSON objects. So you have to stringy them first. (Also sometimes JSON.parse to read but we don't have to do it in our case).
+
+----------------------------------------------
+const path = require('path');
+const fs = require('fs');
+const solc = require('solc');
+
+const inboxpath = path.resolve(__dirname, 'contracts', 'Uniswap.sol');
+const source = fs.readFileSync(inboxpath, 'UTF-8');
+
+var input = {
+  language: 'Solidity',
+  sources: {
+    'Uniswap.sol' : {
+        content: source
+    }
+},
+settings: {
+    outputSelection: {
+        '*': {
+            '*': [ '*' ]
+        }
+    }
+}
+};
+
+var output = JSON.parse(solc.compile(JSON.stringify(input)));
+
+exports.abi = output.contracts['Uniswap.sol']['Uniswap'].abi;
+exports.bytecode = output.contracts['Uniswap.sol'] ['Uniswap'].evm.bytecode.object;
+
+
+console.log("ABI");
+console.log(JSON.stringify(exports.abi));
+console.log("BYTECODE")
+console.log(exports.bytecode);
+----------------------------------------------
+
+3. Use this ABI in contract_name.js file to get an instance of the contract. Also contract address will be needed at this point.
+
+----------------------------------------------
+
+import web3 from "./web3";
+
+const abi = _insert abi here, it should be something like: [{inputs: .....}];
+
+
+let instance = new web3.eth.Contract(abi, '0xF56efC2E2eD9770482c690377c8F4E137Df268DA');
+
+export default instance;
+
+----------------------------------------------
+
