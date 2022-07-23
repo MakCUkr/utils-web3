@@ -1,0 +1,5 @@
+npm install --dev hardhat-contract-sizer
+require('hardhat-contract-sizer'); // ad this line to hardhat.config.js
+npx hardhat hardhat size-contracts // run to ge the sizes
+
+for more details: https://ethereum.stackexchange.com/questions/31515/how-to-check-the-size-of-a-contract-in-solidity

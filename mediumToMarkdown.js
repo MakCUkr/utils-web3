@@ -1,7 +1,7 @@
 const mediumToMarkdown = require('medium-to-markdown');
  
 // Enter url here
-mediumToMarkdown.convertFromUrl('https://medium.com/@maksimjeet/revolution-in-web3-gaming-65e8d18dce0b')
+mediumToMarkdown.convertFromUrl('https://medium.com/@anuragsista111/introduction-to-web3-games-and-guilds-59c05e0565d3')
 .then(function (markdown) {
   console.log(markdown); //=> Markdown content of medium post
 });

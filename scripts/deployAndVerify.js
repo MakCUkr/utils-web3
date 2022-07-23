@@ -1,6 +1,6 @@
-let snftName = "creatorXsnft"
-let snftSymbol = "ERC998"
-let tierUpgradeCost1 = 500;
+let snftName = "IGG x Respct.co"
+let snftSymbol = "IGGRspct"
+let tierUpgradeCost1 = 0;
 let childURI = "https://ERC1155.com/{id}";
 const {exec} = require('child_process');
 const {series} = require('async');
@@ -29,8 +29,10 @@ async function main() {
 
     var temp1 = "npx hardhat verify --network mumbai "+ parent.address +" "+ snftName+" "+ snftSymbol+" "+ tierUpgradeCost1.toString(); 
     var temp2 = "npx hardhat verify --network mumbai "+ child.address +" "+ childURI+" "+ parent.address.toString(); 
-    exec(temp1);
-    exec(temp2);
+    series([
+      ()=>exec(temp1),
+      ()=>exec(temp2)
+    ]); 
   }
   
   main()
